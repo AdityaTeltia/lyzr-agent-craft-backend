@@ -22,7 +22,7 @@ exports.createTicket = async (req, res) => {
 
 exports.getTickets = async (req, res) => {
   try {
-    const tickets = await Ticket.find({ userId: req.auth.userId });
+    const tickets = await Ticket.find({});
     res.json(tickets);
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
