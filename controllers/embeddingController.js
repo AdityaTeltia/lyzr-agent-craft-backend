@@ -200,25 +200,22 @@ const generateEmbeddingScript = async (req, res) => {
 
     async function sendMessageToLyzr(text) {
         try {
-            // const res = await fetch(CHAT_API_URL, {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //         'x-api-key': '${process.env.LYZR_API_KEY}'
-            //     },
-            //     body: JSON.stringify({
-            //         user_id: userEmail,
-            //         agent_id: '${agentId}',
-            //         session_id: sessionId,
-            //         message: text,
-            //         system_prompt_variables: {},
-            //         filter_variables: {}
-            //     })
-            // });
-            // const data = await res.json();
-            const data = {
-                "response": "hello hanji namaste",
-            };
+            const res = await fetch(CHAT_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': '${process.env.LYZR_API_KEY}'
+                },
+                body: JSON.stringify({
+                    user_id: userEmail,
+                    agent_id: '${agentId}',
+                    session_id: sessionId,
+                    message: text,
+                    system_prompt_variables: {},
+                    filter_variables: {}
+                })
+            });
+            const data = await res.json();
             if (data.response) {
                 appendMessage(data.response, 'agent');
                 logChat('agent', data.response);

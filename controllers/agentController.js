@@ -158,7 +158,7 @@ exports.createAgent = async (req, res) => {
 
     // Step 4: Create Agent
     const agentId = await createLyzrAgent(name, systemPrompt, knowledgeBaseId, knowledgeBaseName);
-    const embeddingScript = `<script src=${process.env.BASE_API_URL}/api/embedding/${agentId}/embedding"></script>`;
+    const embeddingScript = `<script src="${process.env.BASE_API_URL}/api/embedding/${agentId}/embedding"></script>`;
 
     // Step 5: Save agent to database
     const agent = new Agent({
