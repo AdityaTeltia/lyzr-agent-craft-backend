@@ -205,3 +205,13 @@ exports.getAgentById = async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
+
+exports.updateAgent = async (req, res) => {
+  try {
+    const { agentId, systemPrompt } = req.body;
+    const agent = await Agent.findByIdAndUpdate(agentId, { systemPrompt }, { new: true });
+    res.status(200).json(agent);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};

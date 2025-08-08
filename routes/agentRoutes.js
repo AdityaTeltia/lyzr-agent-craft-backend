@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createAgent, getAllAgentsByUserId, getAgentById } = require('../controllers/agentController');
+const { createAgent, getAllAgentsByUserId, getAgentById, updateAgent } = require('../controllers/agentController');
 const { ClerkExpressRequireAuth } = require('@clerk/clerk-sdk-node');
 const multer = require('multer');
 
@@ -15,5 +15,6 @@ router.post(
 
 router.get('/user/:userId', getAllAgentsByUserId);
 router.get('/:agentId', getAgentById);
+router.post('/update-agent', updateAgent);
 
 module.exports = router;

@@ -1,5 +1,6 @@
 // controllers/chatLoggerController.js
 const Ticket = require('../models/ticket');
+const Agent = require('../models/agent');
 
 exports.improveAgent = async (req, res) => {
   try {
@@ -11,7 +12,6 @@ exports.improveAgent = async (req, res) => {
       .lean();
 
     const agent = await Agent.findById(agentId);
-
     if (!lastFiveTickets || lastFiveTickets.length === 0 || !agent) {
       return res.status(404).json({
         success: false,
@@ -24,7 +24,7 @@ exports.improveAgent = async (req, res) => {
     const userEmail = 'SystemAgent';
 
     const chatHistories = lastFiveTickets.map(ticket => ticket.chatHistory || []);
-    const text = JSON.stringify(chatHistories);
+    let text = JSON.stringify(chatHistories);
     const systemPrompt = agent.systemPrompt;
     text = "{system prompt: " + systemPrompt + "\n" + "chat histories: " + text + "}";
 
@@ -52,7 +52,7 @@ exports.improveAgent = async (req, res) => {
     });
 
   } catch (error) {
-    console.error('[Improve Agent Error]', error);
+    console.log('[Improve Agent Error]', error);
     return res.status(500).json({
       success: false,
       error: 'Failed to improve agent',
