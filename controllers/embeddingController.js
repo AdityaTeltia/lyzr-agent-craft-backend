@@ -179,8 +179,6 @@ const generateEmbeddingScript = async (req, res) => {
 
     async function logChat(sender, message) {
         try {
-            console.log(sender)
-            console.log(message);
             await fetch(LOG_CHAT_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -190,7 +188,8 @@ const generateEmbeddingScript = async (req, res) => {
                     userId: userEmail,
                     sender,
                     message,
-                    timestamp: new Date().toISOString()
+                    timestamp: new Date().toISOString(),
+                    adminId: '${agent.userId}'
                 })
             });
         } catch (err) {

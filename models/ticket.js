@@ -39,6 +39,10 @@ const TicketSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  adminId: {
+    type: String,
+    required: true
+  },
 });
 
 module.exports = mongoose.model('Ticket', TicketSchema);

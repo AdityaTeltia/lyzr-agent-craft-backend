@@ -10,6 +10,7 @@ exports.createTicket = async (req, res) => {
       description,
       agent: agentId,
       userId,
+      adminId: agentId
     });
 
     await ticket.save();
@@ -23,6 +24,15 @@ exports.createTicket = async (req, res) => {
 exports.getTickets = async (req, res) => {
   try {
     const tickets = await Ticket.find({});
+    res.json(tickets);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+exports.getTicketsByAdminId = async (req, res) => {
+  try {
+    const tickets = await Ticket.find({ adminId: req.params.adminId });
     res.json(tickets);
   } catch (error) {
     res.status(500).json({ message: 'Server error' });

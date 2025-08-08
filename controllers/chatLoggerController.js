@@ -3,8 +3,7 @@ const Ticket = require('../models/ticket');
 
 exports.logChatToTicket = async (req, res) => {
   try {
-    const { sessionId, message, sender, agentId, userId } = req.body;
-
+    const { sessionId, message, sender, agentId, userId, adminId } = req.body;
     const updatedTicket = await Ticket.findOneAndUpdate(
       { title: sessionId },
       {
@@ -15,6 +14,7 @@ exports.logChatToTicket = async (req, res) => {
           priority: 'medium',
           agent: agentId,
           userId,
+          adminId
         },
         $push: {
           chatHistory: {
