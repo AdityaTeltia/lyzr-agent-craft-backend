@@ -26,6 +26,15 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Routes
+// Health check route
+app.get('/health-check', (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    message: 'Server is running',
+    timestamp: new Date().toISOString()
+  });
+});
+
 app.use('/api/agents', agentRoutes);
 app.use('/api/tickets', ticketRoutes);
 app.use('/api/embedding', embeddingRoutes);
@@ -49,6 +58,6 @@ io.on('connection', (socket) => {
   });
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
